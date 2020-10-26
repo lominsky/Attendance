@@ -54,7 +54,7 @@ function addNavigation() {
   let links = [
     {
       name: "Attendance",
-      path: "/",
+      path: "index.html",
       icon: "calendar"
     },
     {
