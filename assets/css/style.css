@@ -1,0 +1,44 @@
+/****************
+  Navigation
+****************/
+.sidebar {
+  top: 0px;
+}
+
+.student-name {
+  font-size: 14pt;
+}
+
+.admin-only {
+  display: none;
+}
+
+main {
+  display: none;
+}
+
+.Present {
+  color: #30A64A;
+}
+
+.Late {
+  color: #FEC02F;
+}
+
+.Absent {
+  color: #DA3849;
+}
+
+.Not-Taken {
+  color: #6D757D;
+}
+
+.day-button svg {
+  width: 35px;
+  height: 35px;
+}
+
+.logout {
+  position: absolute;
+  bottom: 10px;
+}

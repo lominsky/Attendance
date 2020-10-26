@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://getbootstrap.com/docs/4.0/examples/dashboard/# -->
+<html lang="en">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/img/user-plus.svg">
+
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
+    <script src="assets/js/fb.js"></script>
+
+    <title>Attendance</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/dashboard.css" rel="stylesheet">
+
+    <!-- Personal Styling -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Attendance</a>
+
+      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+      <!-- <ul class="navbar-nav px-3" onclick="logout()">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#" rel="no-refresh">Sign out</a>
+        </li>
+      </ul> -->
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+            </ul>
+            <ul class="nav flex-column logout">
+              <li class="nav-item"><a class="nav-link left-nav" onclick="logout()" href="#" rel="no-refresh"><span data-feather="log-out"></span>Logout</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Login Panel -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 login">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Login</h1>
+          </div>
+
+          <button onclick="login()">Login</button>
+        </main>
+
+        <!-- Class Detail -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 main">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2"><span onclick="document.location='classes.html'">Classes</span> > <span id="detailName"></span></h1>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              Class Days
+            </div>
+            <div class="card-body" id="weekCheckBoxes">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="MondayCheckBox" value="Monday">
+                <label class="form-check-label" for="MondayCheckBox">Monday</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="TuesdayCheckBox" value="Tuesday">
+                <label class="form-check-label" for="TuesdayCheckBox">Tuesday</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="WednesdayCheckBox" value="Wednesday">
+                <label class="form-check-label" for="WednesdayCheckBox">Wednesday</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="ThursdayCheckBox" value="Thursday">
+                <label class="form-check-label" for="ThursdayCheckBox">Thursday</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="FridayCheckBox" value="Friday">
+                <label class="form-check-label" for="FridayCheckBox">Friday</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mt-3">
+            <div class="card-header">
+              Homeroom
+            </div>
+            <div class="card-body">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="HomeroomCheckBox">
+                <label class="form-check-label" for="HomeroomCheckBox">Check here to use this class for "Daily Attendance"</label>
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="card">
+            <div class="card-header">
+              Students
+            </div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addStudentToClassLabel">Add a student</span>
+                </div>
+                  <input class="form-control studentAutoComplete" type="text" autocomplete="on"  aria-describedby="addStudentToClassLabel" id="addStudentToClassInput">              
+                </div>
+                <ul class="list-group" id="studentList">
+                </ul>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="card">
+            <div class="card-header">
+              Teachers
+            </div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addTeacherToClassLabel">Add a teacher</span>
+                </div>
+                  <input class="form-control teacherAutoComplete" type="text" autocomplete="on"  aria-describedby="addTeacherToClassLabel" id="addTeacherToClassInput">              
+                </div>
+                <div id="teacherList">
+                  
+                </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="card">
+            <div class="card-header">
+              Attendance
+            </div>
+            <div class="card-body">
+              <div id="attendanceList">
+                
+              </div>
+            </div>
+          </div>
+
+          <br>
+        </main>
+      </div>
+    </div>
+  </body>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="assets/js/jquery-3.2.1.slim.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+
+  <!-- Bootstrap Autocomplete -->
+  <script src="assets/js/bootstrap-autocomplete.min.js"></script>
+
+  <!-- Icons -->
+  <script src="assets/js/feather.min.js"></script>
+  <script>
+    feather.replace()
+  </script>
+  
+  <script src="assets/js/script.js" defer></script> 
+  <script src="assets/js/class.js" defer></script>  
+</html>

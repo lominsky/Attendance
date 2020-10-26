@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://getbootstrap.com/docs/4.0/examples/dashboard/# -->
+<html lang="en">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/img/user-plus.svg">
+
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
+    <script src="assets/js/fb.js"></script>
+
+    <title>Attendance</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/dashboard.css" rel="stylesheet">
+
+    <!-- Personal Styling -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Attendance</a>
+
+      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+      <!-- <ul class="navbar-nav px-3" onclick="logout()">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#" rel="no-refresh">Sign out</a>
+        </li>
+      </ul> -->
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+            </ul>
+            <ul class="nav flex-column logout">
+              <li class="nav-item"><a class="nav-link left-nav" onclick="logout()" href="#" rel="no-refresh"><span data-feather="log-out"></span>Logout</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Login Panel -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 login">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Login</h1>
+          </div>
+
+          <button onclick="login()">Login</button>
+        </main>
+
+        <!-- Student Detail -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 main">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2"><span onclick="document.location='students.html'">Students</span> > <span id="detailName"></span></h1>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              Classes
+            </div>
+            <div class="card-body">
+                <ul class="list-group" id="classList">
+                </ul>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="card">
+            <div class="card-header">
+              Attendance
+            </div>
+            <div class="card-body">
+              <div id="attendanceList">
+                
+              </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="assets/js/jquery-3.2.1.slim.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+
+  <!-- Bootstrap Autocomplete -->
+  <script src="assets/js/bootstrap-autocomplete.min.js"></script>
+
+  <!-- Icons -->
+  <script src="assets/js/feather.min.js"></script>
+  <script>
+    feather.replace()
+  </script>
+  
+  <script src="assets/js/script.js" defer></script> 
+  <script src="assets/js/student.js" defer></script>  
+</html>
