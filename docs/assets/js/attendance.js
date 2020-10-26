@@ -62,17 +62,15 @@ function assembleList() {
 		buttonGroup.append(present, late, absent);
 		buttons.append(buttonGroup);
 
-		let note = $("<span class='row ml-1 mr-1'><span class='input-group'><span class='input-group-text'>Notes</span><input type='text' class='form-control' onblur='takeAttendance(this)></span></span>");
-
+		let note = $("<span class='row ml-1 mr-1'><span class='input-group'><span class='input-group-text'>Notes</span><input type='text' class='form-control' onblur='takeAttendance(this)'></span></span>");
 		li.append(name, buttons, note);
 		$("#students").append(li);
 	}
 }
 
+
 function setAll(status) {
-	console.log(status);
 	let rows = $(".list-group-item").each((i, v) => {
-		// console.log(i, v)
 		let note = $(v).find('input.form-control');
 		note = $(note).val();
 
@@ -120,11 +118,9 @@ function getAttendance() {
 		if(att == null) {
 			let today = new Date();
 			if(today.toNumberString() != date.toNumberString()) {
-				// console.log("Only generates 'Not Taken' on the day of.");
 				return false;
 			}
 			if(!data.days[date.getDayString()]) {
-				// console.log("The class doesn't meet today.");
 				return false;
 			}
 			for(let studentId in data.students) {

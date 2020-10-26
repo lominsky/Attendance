@@ -111,7 +111,7 @@ function propogateData() {
 	// console.log(notTaken);
 	for(let c of notTaken) {
 		let temp = $("<li class='list-group-item'></li>");
-		let nameSpan = $("<span>" + c.name + "</span>");
+		let nameSpan = $("<span onclick='document.location=\"attendance.html?date=" + date.toNumberString() + "&id=" + c.id + "\"'>" + c.name + "</span>");
 		if(c.days.Homeroom) nameSpan.prepend("Homeroom: ");
 		temp.append(nameSpan);
 
