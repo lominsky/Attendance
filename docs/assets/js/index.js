@@ -15,8 +15,10 @@ function prepPage() {
 			path += keys[i] + "=" + vals[i];
 			if(i < keys.length -1) path += "&";
 		}
+		document.location = path;
 	}
 	$("#date").text(date.toTextString() + " - " + date.getDayString());
+	if(date.getDay() % 6 == 0) return false;
 
 	// ********** Get User's Classes **********
 	firebase.database().ref("/teachers/").once('value', snapshot => {

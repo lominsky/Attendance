@@ -59,7 +59,7 @@ function fillPage() {
     })
     for(let p of people) {
       let name = p.first_name + " " + p.last_name;
-      $("#" + type + "List").append($('<li class="list-group-item"><span class="' + type + 'List" ' + type + '-id="' + p.id + '" student-name="' + name + '" onclick="document.location=\'' + type + '.html?id=' + p.id + '\'">' + name + '</span><span style="float:right;" onclick="removePerson(\'' + type + '\', ' + p.id + ')"><span data-feather="x"></span></span></li>'));
+      $("#" + type + "List").append($('<li class="list-group-item"><span class="' + type + 'List" ' + type + '-id="' + p.id + '" student-name="' + name + '" onclick="document.location=\'' + type + '.html?id=' + p.id + '\'">' + name + '</span><span class="admin-only" style="float:right;" onclick="removePerson(\'' + type + '\', ' + p.id + ')"><span data-feather="x"></span></span></li>'));
     }
 	}
 
