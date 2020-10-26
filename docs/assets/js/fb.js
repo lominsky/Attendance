@@ -29,11 +29,16 @@ firebase.auth().onAuthStateChanged(function(u) {
   	prepPage();
   	$('main').hide();
   	$('main.main').show();
+  	$('.logout').show();
   } else {
   	user = null;
   	$('main').hide();
   	$('main.login').show();
-  	refresh();
+  	let nav = $('#sidebarMenu').children()[0];
+	nav = $(nav).children()[0];
+	$(nav).html("");
+  	$('.logout').hide();
+  	// refresh();
   }
 });
 
@@ -56,7 +61,6 @@ function login() {
 
 function logout() {
 	firebase.auth().signOut().then(function() {
-		
 	});	
 }
 
