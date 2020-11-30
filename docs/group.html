@@ -57,44 +57,46 @@
           <button type="button" class="btn btn-primary" onclick="login()">Login</button>
         </main>
 
-        <!-- Student Detail -->
+        <!-- Group Detail -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 main">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2"><span onclick="document.location='students.html'">Students</span> > <span id="detailName"></span></h1>
+            <h1 class="h2"><span onclick="document.location='groups.html'">Groups</span> > <span id="detailName"></span></h1>
           </div>
+
+          <br>
+
+          <div class="card">
+            <div class="card-header">
+              Students
+            </div>
+            <div class="card-body">
+              <div class="input-group mb-3 admin-only">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addStudentToClassLabel">Add a student</span>
+                </div>
+                <input class="form-control studentAutoComplete" type="text" autocomplete="on"  aria-describedby="addStudentToClassLabel" id="addStudentToClassInput">         
+              </div>
+              <ul class="list-group" id="studentList">
+              </ul>
+            </div>
+          </div>
+
+          <br>
 
           <div class="card">
             <div class="card-header">
               Classes
             </div>
             <div class="card-body">
+              <div class="input-group mb-3 admin-only">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addGroupToClassLabel">Add a Class</span>
+                </div>
+                <input class="form-control classAutoComplete" type="text" autocomplete="on"  aria-describedby="addGroupToClassLabel" id="addGroupToClassInput">         
+              </div>
                 <ul class="list-group" id="classList">
                 </ul>
             </div>
-          </div>
-
-          <br>
-
-          <div class="card">
-            <div class="card-header">
-              Groups
-            </div>
-            <div class="card-body">
-                <ul class="list-group" id="groupList">
-                </ul>
-            </div>
-          </div>
-
-          <br>
-
-          <div class="card">
-            <div class="card-header">
-              Attendance
-            </div>
-            <div class="card-body">
-              <div id="attendanceList">
-                
-              </div>
           </div>
         </main>
       </div>
@@ -118,5 +120,5 @@
   </script>
   
   <script src="assets/js/script.js" defer></script> 
-  <script src="assets/js/student.js" defer></script>  
+  <script src="assets/js/group.js" defer></script>  
 </html>

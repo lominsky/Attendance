@@ -70,12 +70,17 @@ function addNavigation() {
     {
       name: "Teachers",
       path: "teachers.html",
-      icon: "users"
+      icon: "user-plus"
     },
     {
       name: "Classes",
       path: "classes.html",
       icon: "book"
+    },
+    {
+      name: "Groups",
+      path: "groups.html",
+      icon: "users"
     },
   ]
   let nav = $('#sidebarMenu').children()[0];

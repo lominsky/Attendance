@@ -1,7 +1,9 @@
 function prepPage() {
 	addNavigation();
-	firebase.database().ref("/teachers/").once('value', function(snapshot) {
+	sortBy.field = "id";
+	firebase.database().ref("/groups/").once('value', function(snapshot) {
 		data = snapshot.val();
+		if(data == null) data = [];
 		data = data.filter(el => el != null);
 		sortData(data, fillTable);
 	});
@@ -19,11 +21,9 @@ function fillTable(array) {
 	table.html("");
 	for(let row of array) {
 		if(row == null) continue;
-		let tr = $("<tr onclick='document.location=\"teacher.html?id=" + row.id +"\"'></tr>");
+		let tr = $("<tr onclick='document.location=\"group.html?id=" + row.id +"\"'></tr>");
 		tr.append($("<td></td>").text(row.id));
-		tr.append($("<td></td>").text(row.first_name));
-		tr.append($("<td></td>").text(row.last_name));
-		tr.append($("<td></td>").text(row.email));
+		tr.append($("<td></td>").text(row.name));
 		table.append(tr);
 	}
 }
@@ -31,7 +31,8 @@ function fillTable(array) {
 function addEntry() {
 	let input = $("form");
 
-	let entry = {}
+	let entry = {
+  }
 
 	for(let inp of input[0]) {
 		let i = $(inp);
@@ -51,11 +52,8 @@ function addEntry() {
 		$(inp).val("");
 	}
 
-	entry.email = entry.email.toLowerCase();
-	firebase.database().ref("/teachers/" + entry.id).set(entry);
-	let userEmail = entry.email.toLowerCase().replace(/\./g, "%2E");
-	firebase.database().ref("/users/" + userEmail).set("true");
-	log("Teacher Added", JSON.stringify(entry));
+	firebase.database().ref("/groups/" + entry.id).set(entry);
+	log("Group Added", JSON.stringify(entry));
 	data.push(entry);
 	sortData(data, fillTable);
 	input[0][0].focus();

@@ -2,7 +2,8 @@ function prepPage() {
 	addNavigation();
 
 	getGlobalData("teachers");
-	getGlobalData("students");
+  getGlobalData("students");
+  getGlobalData("groups");
 	firebase.database().ref("/classes/" + search.id).once('value', function(snapshot) {
 		let temp = snapshot.val();
 		if(temp == null) {
@@ -10,13 +11,21 @@ function prepPage() {
 		}
 		data = temp;
 
-		if(data.students == null) data.students = {};
-		let tempStudents = {};
-		for(let i in data.students) {
-			if(data.students != null)
-				tempStudents[i] = true;
-		}
-		data.students = tempStudents;
+    if(data.students == null) data.students = {};
+    let tempStudents = {};
+    for(let i in data.students) {
+      if(data.students != null)
+        tempStudents[i] = true;
+    }
+    data.students = tempStudents;
+
+    if(data.groups == null) data.groups = {};
+    let tempGroups = {};
+    for(let i in data.groups) {
+      if(data.groups != null)
+        tempGroups[i] = true;
+    }
+    data.groups = tempGroups;
 
 		if(data.teachers == null) data.teachers = {};
 		let tempTeachers = {};
@@ -42,6 +51,12 @@ function fillPage() {
 			firebase.database().ref(/classes/ + data.id + "/days/" + day).set(t.prop("checked"));
 		});
 	}
+
+  console.log(data.groups);
+  for(let gid in data.groups) {
+    let name = globalData.groups[gid].name;
+    $("#groupList").append($('<li class="list-group-item"><span class="groupList" group-id="' + gid + '" group-name="' + name + '" onclick="document.location=\'group.html?id=' + gid + '\'">' + name + '</span><span class="admin-only" style="float:right;" onclick="removeGroup(' + gid + ')"><span data-feather="x"></span></span></li>'));
+  }
 
 	let types = ["student", "teacher"];
 	for(let type of types) {
@@ -111,14 +126,14 @@ $('.teacherAutoComplete').autoComplete({
 
 $("#addStudentToClassInput").keyup(e => {
   if(e.key == "Enter") {
-  	let userId = $(e.target).val();
+    let userId = $(e.target).val();
     if(userId.indexOf(',') == -1) {
-    	userId = userId.substring(userId.indexOf("ID# ") + 4);
-    	if(globalData.students[userId] == null) return false;
-    	if(data.students[userId] != null) return false;
-    	addPersonToClass("student", data.id, data.name, userId, globalData.students[userId].first_name + " " + globalData.students[userId].last_name);
-    	data.students[userId] = globalData.students[userId].first_name + " " + globalData.students[userId].last_name;
-    	fillPage();
+      userId = userId.substring(userId.indexOf("ID# ") + 4);
+      if(globalData.students[userId] == null) return false;
+      if(data.students[userId] != null) return false;
+      addPersonToClass("student", data.id, data.name, userId, globalData.students[userId].first_name + " " + globalData.students[userId].last_name);
+      data.students[userId] = globalData.students[userId].first_name + " " + globalData.students[userId].last_name;
+      fillPage();
       $(e.target).val("");
     } else {
       userIds = userId.split(",");
@@ -152,14 +167,68 @@ $('.studentAutoComplete').autoComplete({
     }
 });
 
-function removePerson(type, id) {
-	let result = confirm("Are you sure you want to remove " + globalData[type + "s"][id].first_name + " from this class?");
-	if(result) {
-  		removePersonFromClass(type, data.id, id);
-  		delete data[type + "s"][id];
-	}
+$("#addGroupToClassInput").keyup(e => {
+  if(e.key == "Enter") {
+    let userId = $(e.target).val();
+    if(userId.indexOf(',') == -1) {
+      userId = userId.substring(userId.indexOf("ID# ") + 4);
+      if(globalData.groups[userId] == null) return false;
+      if(data.groups[userId] != null) return false;
 
-	fillPage();
+      let gs = globalData.groups[userId].students;
+      for(let uid in gs) {
+        if(gs[uid] == null) continue;
+        addPersonToClass("student", data.id, data.name, uid, globalData.students[uid].first_name + " " + globalData.students[uid].last_name);
+        data.students[uid] = globalData.students[uid].first_name + " " + globalData.students[uid].last_name;
+      }
+
+      addGroupToClass(data.id, data.name, userId, globalData.groups[userId].name);
+      data.groups[userId] = globalData.groups[userId].name;
+      fillPage();
+      $(e.target).val("");
+    }
+  }
+})
+$('.groupAutoComplete').autoComplete({
+    resolver: 'custom',
+    events: {
+        search: function (qry, callback) {
+          qry = qry.toLowerCase();
+          let list = [];
+          for(let i in globalData.groups) {
+            let li = globalData.groups[i];
+            let name = li.name + " - ID# " + li.id;
+            if(name.toLowerCase().indexOf(qry) == -1) continue;
+            if(data.groups[li.id] != null) continue;
+            list.push(name);
+          }
+          callback(list);
+        }
+    }
+});
+
+function removePerson(type, id) {
+  let result = confirm("Are you sure you want to remove " + globalData[type + "s"][id].first_name + " from this class?");
+  if(result) {
+      removePersonFromClass(type, data.id, id);
+      delete data[type + "s"][id];
+  }
+
+  fillPage();
+}
+
+function removeGroup(gid) {
+  let result = confirm("Are you sure you want to remove this group from the class?");
+  if(result) {
+    console.log(globalData.groups)
+      for(let uid in globalData.groups[data.id].students) {
+        removeStudentFromClass(data.id, uid)
+      }
+      removeGroupFromClass(data.id, gid)
+      delete data.groups[gid];
+  }
+
+  fillPage();
 }
 
 function getAttendance() {

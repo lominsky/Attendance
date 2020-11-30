@@ -21,6 +21,7 @@ firebase.auth().onAuthStateChanged(function(u) {
   	user = u;
   	getSearch();
   	user.isAdmin = false;
+    $('.adminOnly').hide();
   	firebase.database().ref("adminTest").once("value", function(snapshot){
   		user.isAdmin = true;
   		$('.admin-only').show();
@@ -51,6 +52,11 @@ function login() {
 	    auth.fetchSignInMethodsForEmail(email).then(function(providers) {
 	    });
 	  }
+	});
+
+	firebase.auth().signInWithPopup(provider).then(result => {
+	}, err => {
+		// log("function login() - error", err);
 	});
 }
 
@@ -112,6 +118,22 @@ function addStudentToClass(cid, className, uid, userName) {
   	log("Student added to class", "Student #" + uid + " added to class #" + cid);
 }
 
+function addGroupToClass(cid, className, gid, groupName) {
+    firebase.database().ref('/classes/' + cid + "/groups/" + gid).set(groupName, error => {
+      if(error) {
+        console.log(error);
+        log("Error: addGroupToClass (1)", "Class ID: " + cid + ", Group ID: " + gid);
+      }
+    });
+    firebase.database().ref('/groups/' + gid + "/classes/" + cid).set(className, error => {
+      if(error) {
+        console.log(error);
+        log("Error: addGroupToClass (2)", "Class ID: " + cid + ", Group ID: " + gid);
+      }
+    });
+    log("Group added to class", "Group #" + gid + " added to class #" + cid);
+}
+
 function addTeacherToClass(cid, className, uid, userName) {
   	firebase.database().ref('/classes/' + cid + "/teachers/" + uid).set(userName, error => {
   		if(error) {
@@ -128,13 +150,28 @@ function addTeacherToClass(cid, className, uid, userName) {
   	log("Teacher added to class", "Teacher #" + uid + " added to class #" + cid);
 }
 
+function addStudentToGroup(gid, groupName, uid, userName) {
+    firebase.database().ref('/groups/' + gid + "/students/" + uid).set(userName, error => {
+      if(error) {
+        console.log(error);
+        log("Error: addStudentToGroup (1)", "Group ID: " + gid + ", User ID: " + uid);
+      }
+    });
+    firebase.database().ref('/students/' + uid + "/groups/" + gid).set(groupName, error => {
+      if(error) {
+        console.log(error);
+        log("Error: addStudentToGroup (2)", "Group ID: " + gid + ", User ID: " + uid);
+      }
+    });
+    log("Student added to group", "Student #" + uid + " added to group #" + gid);
+}
 
 function removePersonFromClass(type, cid, uid) {
-	if(type == "student") {
-		removeStudentFromClass(cid, uid);
-	} else if(type == "teacher") {
-		removeTeacherFromClass(cid, uid);
-	}
+  if(type == "student") {
+    removeStudentFromClass(cid, uid);
+  } else if(type == "teacher") {
+    removeTeacherFromClass(cid, uid);
+  }
 }
 
 function removeStudentFromClass(cid, uid) {
@@ -147,6 +184,18 @@ function removeTeacherFromClass(cid, uid) {
 	firebase.database().ref('/teachers/' + uid + "/classes/" + cid).remove();
 	firebase.database().ref('/classes/' + cid + "/teachers/" + uid).remove();
 	log("Remove teacher from class", "Removed teacher #" + uid + " from class #" + cid);
+}
+
+function removeGroupFromClass(cid, gid) {
+  firebase.database().ref('/groups/' + gid + "/classes/" + cid).remove();
+  firebase.database().ref('/classes/' + cid + "/groups/" + gid).remove();
+  log("Remove group from class", "Removed group #" + gid + " from class #" + cid);
+}
+
+function removeStudentFromGroup(gid, uid) {
+  firebase.database().ref('/groups/' + gid + "/students/" + uid).remove();
+  firebase.database().ref('/students/' + uid + "/groups/" + gid).remove();
+  log("Remove student from group", "Removed student #" + uid + " from group #" + gid);
 }
 
 function updateAttendance(date, classId, studentId, status = "Not Taken", note = "") {

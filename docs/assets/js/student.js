@@ -6,6 +6,7 @@ function prepPage() {
 
     let temp = {};
     globalData.classes = {};
+    globalData.groups = {};
 
     $("#classList").html("");
     for(let i in data.classes) {
@@ -15,6 +16,18 @@ function prepPage() {
           let c = snapshot.val();
           globalData.classes[i] = c;
           $("#classList").append($('<li class="list-group-item"><span class-id="' + i + '" class-name="' + c.name + '" onclick="document.location=\'class.html?id=' + i + '\'">' + c.name + ' </span><span style="float:right;" onclick="removeClass(' + i + ')"><span data-feather="x"></span></span></li>'));
+          feather.replace();
+        })
+      }
+    }
+    for(let i in data.groups) {
+      console.log(data.groups);
+      if(data.groups[i] != null) {
+        console.log(i);
+        firebase.database().ref("/groups/" + i).once("value", snapshot => {
+          let g = snapshot.val();
+          globalData.groups[i] = g;
+          $("#groupList").append($('<li class="list-group-item"><span group-id="' + i + '" group-name="' + g.name + '" onclick="document.location=\'group.html?id=' + i + '\'">' + g.name + ' </span><span style="float:right;" onclick="removeGroup(' + i + ')"><span data-feather="x"></span></span></li>'));
           feather.replace();
         })
       }
@@ -39,14 +52,31 @@ function listClasses() {
     feather.replace();
 }
 
+function listGroups() {
+    $("#groupList").html("");
+    for(let i in data.groups) {
+      let g = globalData.groups[i];
+      $("#groupList").append($('<li class="list-group-item"><span group-id="' + i + '" group-name="' + g.name + '" onclick="document.location=\'group.html?id=' + i + '\'">' + g.name + '</span><span style="float:right;" onclick="removeGroup(' + i + ')"><span data-feather="x"></span></span></li>'));    
+    }
+    feather.replace();
+}
 
 function removeClass(id) {
-	let result = confirm("Are you sure you want to remove this student from from this class?");
-	if(result) {
-  		removeStudentFromClass(id, data.id);
-  		delete data.classes[id];
+  let result = confirm("Are you sure you want to remove this student from from this class?");
+  if(result) {
+      removeStudentFromClass(id, data.id);
+      delete data.classes[id];
       listClasses();
-	}
+  }
+}
+
+function removeGroup(gid) {
+  let result = confirm("Are you sure you want to remove the student from from this group?");
+  if(result) {
+      removeStudentFromGroup(gid, data.id);
+      delete data.groups[id];
+      listGroups();
+  }
 }
 
 function getAttendance() {
@@ -72,6 +102,8 @@ function getAttendance() {
           classes: []
         }
 
+        // console.log(cid, globalData.classes);
+        if(globalData.classes[cid] == null) continue;
         att[cid][d].name = globalData.classes[cid].name;
         days[d].classes.push(att[cid][d]);
       }
