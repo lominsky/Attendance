@@ -52,11 +52,6 @@ function login() {
 	    });
 	  }
 	});
-
-	firebase.auth().signInWithPopup(provider).then(result => {
-	}, err => {
-		// log("function login() - error", err);
-	});
 }
 
 function logout() {
