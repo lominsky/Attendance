@@ -96,7 +96,8 @@ $("#addStudentToClassInput").keyup(e => {
         if(globalData.students[id] == null) continue;
         if(data.students[id] != null) continue;
         for(let cid in data.classes) {
-          addStudentToClass(cid, globalData.classes[cid].name, userId, globalData.students[userId].first_name + " " + globalData.students[userId].last_name);
+          console.log(userId, globalData.students);
+          addStudentToClass(cid, globalData.classes[cid].name, id, globalData.students[id].first_name + " " + globalData.students[id].last_name);
         }
         addStudentToGroup(data.id, data.name, id, globalData.students[id].first_name + " " + globalData.students[id].last_name)
         data.students[id] = globalData.students[id].first_name + " " + globalData.students[id].last_name;
@@ -175,7 +176,7 @@ function removeClass(classId) {
 
 
 function removeStudent(id) {
-  let result = confirm("Are you sure you want to remove " + globalData[type + "s"][id].first_name + " from this group?");
+  let result = confirm("Are you sure you want to remove " + globalData.students[id].first_name + " from this group?");
   if(result) {
       for(let cid in data.classes) {
         removeStudentFromClass(cid, id)

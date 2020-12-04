@@ -74,7 +74,7 @@ function removeGroup(gid) {
   let result = confirm("Are you sure you want to remove the student from from this group?");
   if(result) {
       removeStudentFromGroup(gid, data.id);
-      delete data.groups[id];
+      delete data.groups[gid];
       listGroups();
   }
 }
