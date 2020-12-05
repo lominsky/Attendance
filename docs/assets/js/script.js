@@ -28,7 +28,6 @@ function sortData(d, callback) {
         return 0;
       }
     }
-    console.log(a, b);
     if(a[sortBy.field].toLowerCase() < b[sortBy.field].toLowerCase()) {
       return -1 * sortBy.direction;
     } else if (a[sortBy.field].toLowerCase() > b[sortBy.field].toLowerCase()) {
