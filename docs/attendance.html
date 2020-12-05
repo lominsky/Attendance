@@ -79,6 +79,17 @@
           <button id="saveButton" type="button" class="btn bg-primary" onclick="$(this).html('Saved!').removeClass('bg-primary').addClass('bg-secondary')" onblur="$(this).html('Save').removeClass('bg-secondary').addClass('bg-primary')">
             Save
           </button>
+          <div style="float:right" class="btn-group" role="group" aria-label="Sort By">
+            <div class="btn-group" role="group">
+              <button id="sortByButtonGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by...
+              </button>
+              <div class="dropdown-menu" aria-labelledby="sortByButtonGroup">
+                <span class="dropdown-item" onclick="sortAttendanceBy('first')">First Name</span>
+                <span class="dropdown-item" onclick="sortAttendanceBy('last')">Last Name</span>
+              </div>
+            </div>
+          </div>
           <br><br>
           <ul class="list-group" id="students"></ul>
         </main>

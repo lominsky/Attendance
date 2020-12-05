@@ -41,14 +41,30 @@ function prepPage() {
 	})
 }
 
+function sortAttendanceBy(field) {
+	Cookies.set("attendance-sort-field", field);
+	assembleList();
+}
+
 function assembleList() {
-	students = students.sort((a, b) => {
-		if(a.first_name > b.first_name) return 1;
-		if(a.first_name < b.first_name) return -1;
-		if(a.last_name > b.last_name) return 1;
-		if(a.last_name < b.last_name) return -1;
-		return 0;
-	})
+	sortField = Cookies.get("attendance-sort-field")
+	if(sortField == "last") {
+		students = students.sort((a, b) => {
+			if(a.last_name > b.last_name) return 1;
+			if(a.last_name < b.last_name) return -1;
+			if(a.first_name > b.first_name) return 1;
+			if(a.first_name < b.first_name) return -1;
+			return 0;
+		})
+	} else {
+		students = students.sort((a, b) => {
+			if(a.first_name > b.first_name) return 1;
+			if(a.first_name < b.first_name) return -1;
+			if(a.last_name > b.last_name) return 1;
+			if(a.last_name < b.last_name) return -1;
+			return 0;
+		})
+	}
 
 	$("#students").html("");
 	for(let s of students) {
