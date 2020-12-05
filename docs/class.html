@@ -93,12 +93,12 @@
 
           <div class="card mt-3">
             <div class="card-header">
-              Homeroom
+              Morning Attendance
             </div>
             <div class="card-body">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="HomeroomCheckBox">
-                <label class="form-check-label" for="HomeroomCheckBox">Check here to use this class for "Daily Attendance"</label>
+                <label class="form-check-label" for="HomeroomCheckBox">Check here to use this class for "Morning Attendance"</label>
               </div>
             </div>
           </div>
@@ -107,17 +107,17 @@
 
           <div class="card">
             <div class="card-header">
-              Students
+              Groups
             </div>
             <div class="card-body">
               <div class="input-group mb-3 admin-only">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="addStudentToClassLabel">Add a student</span>
+                  <span class="input-group-text" id="addGroupToClassLabel">Add a Group</span>
                 </div>
-                  <input class="form-control studentAutoComplete" type="text" autocomplete="on"  aria-describedby="addStudentToClassLabel" id="addStudentToClassInput">              
-                </div>
-                <ul class="list-group" id="studentList">
-                </ul>
+                  <input class="form-control groupAutoComplete" type="text" autocomplete="on"  aria-describedby="addGroupToClassLabel" id="addGroupToClassInput">              
+              </div>
+              <ul class="list-group" id="groupList">
+              </ul>
             </div>
           </div>
 
@@ -137,6 +137,24 @@
                 <div id="teacherList">
                   
                 </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="card">
+            <div class="card-header">
+              Students
+            </div>
+            <div class="card-body">
+              <div class="input-group mb-3 admin-only">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addStudentToClassLabel">Add a student</span>
+                </div>
+                  <input class="form-control studentAutoComplete" type="text" autocomplete="on"  aria-describedby="addStudentToClassLabel" id="addStudentToClassInput">              
+                </div>
+                <ul class="list-group" id="studentList">
+                </ul>
             </div>
           </div>
 

@@ -28,6 +28,7 @@ function sortData(d, callback) {
         return 0;
       }
     }
+    console.log(a, b);
     if(a[sortBy.field].toLowerCase() < b[sortBy.field].toLowerCase()) {
       return -1 * sortBy.direction;
     } else if (a[sortBy.field].toLowerCase() > b[sortBy.field].toLowerCase()) {
@@ -70,12 +71,17 @@ function addNavigation() {
     {
       name: "Teachers",
       path: "teachers.html",
-      icon: "users"
+      icon: "user-plus"
     },
     {
       name: "Classes",
       path: "classes.html",
       icon: "book"
+    },
+    {
+      name: "Groups",
+      path: "groups.html",
+      icon: "users"
     },
   ]
   let nav = $('#sidebarMenu').children()[0];

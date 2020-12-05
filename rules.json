@@ -1,0 +1,49 @@
+{
+  "rules": {
+    // This is only used for db rules, not for reading or updating from the user side
+    "admin": {
+      ".read": "false",
+      ".write": "false"
+    },
+    //Allow admins to add new users
+    "users": {
+      ".read": "false",
+      ".write": "root.child('admin').child(auth.token.email.replace('.', '%2E')).exists()"
+    }, 
+    //Anyone logged-in can write to the log but only admin can read it
+    "logs": {
+      ".read": "root.child('admin').child(auth.token.email.replace('.', '%2E')).exists()",
+      ".write": "auth != null"
+    }, 
+    //This only exists to quickly check if a user is an admin
+    "adminTest": {
+      ".read": "root.child('admin').child(auth.token.email.replace('.', '%2E')).exists()",
+      ".write": "root.child('users').child(auth.token.email.replace('.', '%2E')).exists()"
+    },
+    //Any user can read or write to the attendance
+    "attendance": {
+      ".read": "root.child('users').child(auth.token.email.replace('.', '%2E')).exists()",   
+      ".write": "root.child('users').child(auth.token.email.replace('.', '%2E')).exists()",    
+    },
+    //Any user can read group info, but only admins can write
+    "groups": {
+      ".read": "root.child('users').child(auth.token.email.replace('.', '%2E')).exists()",   
+      ".write": "root.child('admin').child(auth.token.email.replace('.', '%2E')).exists()",   
+    },
+    //Any user can read class info, but only admins can write
+    "classes": {
+      ".read": "root.child('users').child(auth.token.email.replace('.', '%2E')).exists()",   
+      ".write": "root.child('admin').child(auth.token.email.replace('.', '%2E')).exists()",   
+    },
+    //Any user can read student info, but only admins can write
+    "students": {
+      ".read": "root.child('users').child(auth.token.email.replace('.', '%2E')).exists()",   
+      ".write": "root.child('admin').child(auth.token.email.replace('.', '%2E')).exists()",     
+    },
+    //Any user can read teacher info, but only admins can write
+    "teachers": {
+      ".read": "root.child('users').child(auth.token.email.replace('.', '%2E')).exists()",   
+      ".write": "root.child('admin').child(auth.token.email.replace('.', '%2E')).exists()",    
+    }
+  }
+}
