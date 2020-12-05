@@ -63,7 +63,7 @@
             <h1 class="h2">Students</h1>
           </div>
 
-          <form class="admin-only">
+          <form id="add-one" class="admin-only">
             <h5>Add a Student</h5>
             <div class="input-group">
               <div class="input-group-prepend">
@@ -73,6 +73,17 @@
               <input type="text" aria-label="first_name" class="form-control">
               <input type="text" aria-label="last_name" class="form-control">
             </div>
+          </form>
+
+          <br>
+
+          <form id="add-csv" class="admin-only">
+            <h5>Add Multiple Students</h5>
+            <div class="students-csv">
+              <label for="students-csv-textarea">CSV: ID, First, Last</label>
+              <textarea class="form-control" id="students-csv-textarea" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addCSV()">Add Students</button>
           </form>
 
           <br>

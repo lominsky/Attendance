@@ -52,7 +52,8 @@ function fillPage() {
 		});
 	}
 
-  console.log(data.groups);
+  // console.log(data.groups);
+  $("#groupList").html("")
   for(let gid in data.groups) {
     let name = globalData.groups[gid].name;
     $("#groupList").append($('<li class="list-group-item"><span class="groupList" group-id="' + gid + '" group-name="' + name + '" onclick="document.location=\'group.html?id=' + gid + '\'">' + name + '</span><span class="admin-only" style="float:right;" onclick="removeGroup(' + gid + ')"><span data-feather="x"></span></span></li>'));
@@ -60,7 +61,7 @@ function fillPage() {
 
 	let types = ["student", "teacher"];
 	for(let type of types) {
-		$("#" + type + "List").html("")
+		$("#" + type + "List").html("");
     let people = [];
     for(let i of Object.keys(data[type + "s"])) {
       people.push(globalData[type + "s"][i]);
