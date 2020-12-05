@@ -76,12 +76,23 @@
 
           <br>
 
+          <form id="add-csv" class="admin-only">
+            <h5>Add Multiple Groups</h5>
+            <div class="groups-csv">
+              <label for="groups-csv-textarea">CSV: ID, Name</label>
+              <textarea class="form-control" id="groups-csv-textarea" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addCSV()">Add Groups</button>
+          </form>
+
+          <br>
+
           <div class="table-responsive">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
                   <th field="id">Group #</th>
-                  <th field="first_name">Name</th>
+                  <th field="name">Name</th>
                 </tr>
               </thead>
               <tbody>
