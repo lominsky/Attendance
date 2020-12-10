@@ -2,6 +2,7 @@ function prepPage() {
 	addNavigation();
 	firebase.database().ref("/students/").once('value', snapshot => {
 		data = snapshot.val();
+		if(data == null) data = [];
 		data = data.filter(el => el != null);
 		for(let d of data) {
 			d.Present = 0;

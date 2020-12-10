@@ -3,6 +3,7 @@ function prepPage() {
 	sortBy.field = "id";
 	firebase.database().ref("/classes/").once('value', function(snapshot) {
 		data = snapshot.val();
+		if(data == null) data = [];
 		data = data.filter(el => el != null);
 		sortData(data, fillTable);
 	});
