@@ -87,8 +87,6 @@ function getGlobalData(path) {
 	});
 }
 
-
-
 function addPersonToClass(type, cid, className, uid, userName) {
 	if(type == "student") {
 		addStudentToClass(cid, className, uid, userName);

@@ -21,9 +21,9 @@ function prepPage() {
       }
     }
     for(let i in data.groups) {
-      console.log(data.groups);
+      // console.log(data.groups);
       if(data.groups[i] != null) {
-        console.log(i);
+        // console.log(i);
         firebase.database().ref("/groups/" + i).once("value", snapshot => {
           let g = snapshot.val();
           globalData.groups[i] = g;
@@ -35,11 +35,19 @@ function prepPage() {
     data.classes = temp;
 		fillPage();
     getAttendance();
-	});
+
+    $('#note').change(function() {
+      firebase.database().ref('/students/' + data.id + '/note/').set($('#note').val());
+    })
+	
+  });
 }
 
 function fillPage() {
 	$("#detailName").text(data.first_name + " " + data.last_name);
+  if(data.note != null) {
+    $("#note").val(data.note)
+  }
   document.title = "Attendance - " + data.first_name + " " + data.last_name;
 }
 
