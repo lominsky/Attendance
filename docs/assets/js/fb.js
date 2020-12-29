@@ -61,7 +61,8 @@ function logout() {
 }
 
 function log(type, message) {
-	firebase.database().ref("logs").push({
+  let now = new Date();
+	firebase.database().ref("logs/" + now.toNumberSlashString()).push({
 		timestamp: firebase.database.ServerValue.TIMESTAMP,
 		user: user.email,
 		type: type,

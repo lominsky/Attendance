@@ -197,6 +197,16 @@ Date.prototype.toNumberString = function() {
   return year + "-" + month + "-" + date;
 }
 
+Date.prototype.toNumberSlashString = function() {
+  let year = this.getFullYear();
+  let month = this.getMonth();
+  month = month + 1;
+  if(month < 10) month = "0" + month;
+  let date = this.getDate();
+  if(date < 10) date = "0" + date;
+  return year + "/" + month + "/" + date;
+}
+
 function getDateFromNumberString(numberString) {
   let date = new Date(numberString);
   if(date == NaN) date = new Date();
