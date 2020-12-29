@@ -72,6 +72,13 @@ function assembleList() {
 
 		let name = $('<span class="row mb-3 ml-1 mr-1 student-name">' + s.first_name + " " + s.last_name + '</span>')
 		
+		let studentNote = $('<span class="row mb-3 ml-1 mr-1 student-note"></span>')
+		if(s.note) {
+			studentNote.text(s.note);
+		} else {
+			studentNote = $('<span></span>');
+		}
+
 		let buttons = $('<span class="row ml-1 mr-1 mb-3"></span>');
 		let buttonGroup = $('<div class="btn-group btn-group-toggle"></div>');
 		let present = $('<label class="btn btn-outline-success" status="Present">Present<input type="radio" status="Present" onclick="takeAttendance(this)"></label>');
@@ -81,7 +88,7 @@ function assembleList() {
 		buttons.append(buttonGroup);
 
 		let note = $("<span class='row ml-1 mr-1'><span class='input-group'><span class='input-group-text'>Notes</span><input type='text' class='form-control' onblur='takeAttendance(this)'></span></span>");
-		li.append(name, buttons, note);
+		li.append(name, studentNote, buttons, note);
 		$("#students").append(li);
 	}
 }

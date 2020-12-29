@@ -31,7 +31,12 @@ function fillTable(array) {
 	for(let row of array) {
 		let tr = $("<tr student-id='" + row.id + "' onclick='document.location=\"student.html?id=" + row.id +"\"'></tr>");
 		tr.append($("<td></td>").text(row.id));
-		tr.append($("<td></td>").text(row.first_name));
+		if(row.note == null) {
+			tr.append($("<td></td>").text(row.first_name));
+		} else {
+			// console.log(row.note);
+			tr.append($("<td><div class='tooltip'>" + row.first_name + "<span class='tooltiptext'>" + row.note + "</span></div></td>"));
+		}
 		tr.append($("<td></td>").text(row.last_name));
 		tr.append($("<td status='Absent'></td>").text(row.Absent));
 		tr.append($("<td status='Late'></td>").text(row.Late));

@@ -75,6 +75,9 @@ function fillPage() {
     })
     for(let p of people) {
       let name = p.first_name + " " + p.last_name;
+      if(p.note != null) {
+        name = "<div class='tooltip'>" + name + "<span class='tooltiptext'>" + p.note + "</span></div>";
+      }
       $("#" + type + "List").append($('<li class="list-group-item"><span class="' + type + 'List" ' + type + '-id="' + p.id + '" student-name="' + name + '" onclick="document.location=\'' + type + '.html?id=' + p.id + '\'">' + name + '</span><span class="admin-only" style="float:right;" onclick="removePerson(\'' + type + '\', ' + p.id + ')"><span data-feather="x"></span></span></li>'));
     }
 	}
@@ -221,7 +224,7 @@ function removePerson(type, id) {
 function removeGroup(gid) {
   let result = confirm("Are you sure you want to remove this group from the class?");
   if(result) {
-    console.log(globalData.groups)
+    // console.log(globalData.groups)
       for(let uid in globalData.groups[data.id].students) {
         removeStudentFromClass(data.id, uid)
       }

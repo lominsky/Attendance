@@ -37,7 +37,11 @@ function prepPage() {
     getAttendance();
 
     $('#note').change(function() {
-      firebase.database().ref('/students/' + data.id + '/note/').set($('#note').val());
+      if($('#note').val().trim() == "") {
+        firebase.database().ref('/students/' + data.id + '/note/').remove();
+      } else {
+        firebase.database().ref('/students/' + data.id + '/note/').set($('#note').val().trim());
+      }
     })
 	
   });

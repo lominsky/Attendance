@@ -59,6 +59,9 @@ function fillPage() {
     })
     for(let p of people) {
       let name = p.first_name + " " + p.last_name;
+      if(p.note != null) {
+        name = "<div class='tooltip'>" + name + "<span class='tooltiptext'>" + p.note + "</span></div>";
+      }
       $("#" + type + "List").append($('<li class="list-group-item"><span class="' + type + 'List" ' + type + '-id="' + p.id + '" student-name="' + name + '" onclick="document.location=\'' + type + '.html?id=' + p.id + '\'">' + name + '</span><span class="admin-only" style="float:right;" onclick="removeStudent(' + p.id + ')"><span data-feather="x"></span></span></li>'));
     }
 	}
@@ -96,7 +99,7 @@ $("#addStudentToClassInput").keyup(e => {
         if(globalData.students[id] == null) continue;
         if(data.students[id] != null) continue;
         for(let cid in data.classes) {
-          console.log(userId, globalData.students);
+          // console.log(userId, globalData.students);
           addStudentToClass(cid, globalData.classes[cid].name, id, globalData.students[id].first_name + " " + globalData.students[id].last_name);
         }
         addStudentToGroup(data.id, data.name, id, globalData.students[id].first_name + " " + globalData.students[id].last_name)
@@ -148,7 +151,7 @@ $('.classAutoComplete').autoComplete({
         search: function (qry, callback) {
           qry = qry.toLowerCase();
           let list = [];
-          console.log(globalData.classes);
+          // console.log(globalData.classes);
           for(let i in globalData.classes) {
             let li = globalData.classes[i];
             let name = li.name + " - ID# " + li.id;
