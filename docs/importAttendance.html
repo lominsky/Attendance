@@ -13,7 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
     <script src="assets/js/fb.js"></script>
 
-    <title>Attendance</title>
+    <title>Import Attendance</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
   <body>
 
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Attendance</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Import Attendance</a>
 
       <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -57,55 +57,47 @@
           <button type="button" class="btn btn-primary" onclick="login()">Login</button>
         </main>
 
-        <!-- Student Detail -->
+        <!-- Import Panel -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 main">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2"><span onclick="document.location='students.html'">Students</span> > <span id="detailName"></span></h1>
-          </div>
-
           <div class="card">
             <div class="card-header">
-              Note
+              Import Attendance as CSV
             </div>
             <div class="card-body">
-              <textarea class="form-control" id="note" rows="1" maxlength="50"></textarea>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Class ID#</th>
+                    <th scope="col">Student 1 ID#</th>
+                    <th scope="col">Student 2 ID#</th>
+                    <th scope="col">Student 3 ID#</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Date/Time</th>
+                    <td>Status</td>
+                    <td>Status</td>
+                    <td>Status</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Date/Time</th>
+                    <td>Status</td>
+                    <td>Status</td>
+                    <td>Status</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Date/Time</th>
+                    <td>Status</td>
+                    <td>Status</td>
+                    <td>Status</td>
+                  </tr>
+                </tbody>
+              </table>
+              <textarea class="form-control" id="csv" rows="5"></textarea>
+              <br>
+              <button type="button" class="btn btn-warning" onclick="importAttendance()">Import</button>
             </div>
-          </div>
-
-          <br>
-
-          <div class="card">
-            <div class="card-header">
-              Classes
-            </div>
-            <div class="card-body">
-                <ul class="list-group" id="classList">
-                </ul>
-            </div>
-          </div>
-
-          <br>
-
-          <div class="card">
-            <div class="card-header">
-              Groups
-            </div>
-            <div class="card-body">
-                <ul class="list-group" id="groupList">
-                </ul>
-            </div>
-          </div>
-
-          <br>
-
-          <div class="card">
-            <div class="card-header">
-              Attendance
-            </div>
-            <div class="card-body">
-              <div id="attendanceList">
-                
-              </div>
           </div>
         </main>
       </div>
@@ -129,5 +121,5 @@
   </script>
   
   <script src="assets/js/script.js" defer></script> 
-  <script src="assets/js/student.js" defer></script>  
+  <script src="assets/js/importAttendance.js" defer></script>  
 </html>
