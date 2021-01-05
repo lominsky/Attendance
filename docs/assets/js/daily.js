@@ -59,6 +59,7 @@ function propogateData() {
 	notTaken = [];
 	for(let c of data.classes) {
 		if(c == null) continue;
+		if(c.days == null) continue;
 		if(!c.days[date.getDayString()]) continue;
 
 		// *********** Handle Not Taken Attendance ************
