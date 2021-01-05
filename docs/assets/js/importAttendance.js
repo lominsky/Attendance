@@ -1,5 +1,6 @@
 function prepPage() {
 	console.log("Ready");
+	$("#card-header").text("Import Attendance as CSV (v1.01)");
 }
 
 function importAttendance() {
@@ -39,4 +40,5 @@ function importAttendance() {
 			updateAttendance(data[r][0], data[0][0], data[0][c], data[r][c]);
 		}
 	}
+	$('#csv').val("")
 }
