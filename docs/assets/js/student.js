@@ -128,7 +128,6 @@ function getAttendance() {
     for(let c in classes) {
       if(classes[c] == null) continue;
       let entry = $("[class-id='" + c + "'");
-      //Not taken: , <span class='Not-Taken'>" + students[s]["Not Taken"] + "</span>
       let stats = " (<span class='Present'>" + classes[c].Present + "</span>, <span class='Late'>" + classes[c].Late + "</span>, <span class='Absent'>" + classes[c].Absent + "</span>)";
       entry.html(entry.attr("class-name") + stats);
     }
@@ -153,5 +152,7 @@ function getAttendance() {
       li.append(title, ul);
       $("#attendanceList").prepend(li);
     }
+  }, error => {
+    console.error(error);
   })
 }

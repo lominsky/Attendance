@@ -13,9 +13,10 @@ function importAttendance() {
 				if(!Number.isInteger(val)) {
 					return alert("Error: Row 0, Column " + c + " is not an integer.");
 				}
+				data[r][c] = val;
 			}
 		} else {
-			let day = new Date(data[r][0]);
+			let day = new Date(data[r][0].trim());
 			if(day == "Invalid Date") {
 				return alert("Error: Invalid date in row " + r);
 			}
@@ -26,7 +27,7 @@ function importAttendance() {
 					"Late": true,
 					"Absent": true
 				}
-				if(statuses[data[r][c]] == null) {
+				if(statuses[data[r][c].trim()] == null) {
 					data[r][c] = "Not Taken";
 				}
 			}
