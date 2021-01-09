@@ -4,6 +4,7 @@ function prepPage() {
 	firebase.database().ref("/classes/").once('value', function(snapshot) {
 		data = snapshot.val();
 		if(data == null) data = [];
+		data = Object.values(data);
 		data = data.filter(el => el != null);
 		sortData(data, fillTable);
 	});
@@ -42,7 +43,7 @@ function addEntry() {
         Sunday: false,
         Homeroom: false
       }
-  }
+	}
 
 	for(let inp of input[0]) {
 		let i = $(inp);
@@ -101,7 +102,17 @@ function addCSV() {
 	for(let row of input) {
 		entries.push({
 			id: row[0],
-			name: row[1]
+			name: row[1],
+			days: {
+		        Monday: true,
+		        Tuesday: true,
+		        Wednesday: true,
+		        Thursday: true,
+		        Friday: true,
+		        Saturday: false,
+		        Sunday: false,
+		        Homeroom: false
+		      }
 		})
 	}
 	//Add
